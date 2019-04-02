@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"fmt"
 	"GoMusic/middlewares"
+	"GoMusic/controllers"
 )
 
 func RunAPI(address string) error {
@@ -12,7 +13,7 @@ func RunAPI(address string) error {
 	r := gin.Default()
 	r.Use(middlewares.MyCustomLogger())
 	//Define a handler
-	h, _ := NewHandler()
+	h, _ := controllers.NewHandler()
 	//load homepage
 	r.GET("/", h.GetMainPage)
 	//get products
@@ -21,14 +22,14 @@ func RunAPI(address string) error {
 	r.GET("/product/:id", h.GetProduct)
 
 		/*
-		//post user sign in
-		r.POST("/user/signin", h.SignIn)
-		//post user sign out
-		r.POST("/user/:id/signout", h.SignOut)
-		//get user orders
-		r.GET("/user/:id/orders", h.GetOrders)
-		//post purchase charge
-		//r.POST("/user/charge", h.Charge)
+		TO DO
+		add product
+		remove product
+		purchase product
+		get orders
+		add config files
+		securize endpoints with tokens
+	
 		*/
 	
 
