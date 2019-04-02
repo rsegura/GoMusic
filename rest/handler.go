@@ -20,6 +20,7 @@ type HandlerInterface interface{
 	AddUser(c *gin.Context)
 	SignIn(c *gin.Context)
 	SignOut(c *gin.Context)
+	GetCustomerByName(c *gin.Context)
 }
 type Handler struct {
 	db dblayer.DBLayer
@@ -169,6 +170,21 @@ func (h *Handler) SignOut(c *gin.Context) {
 	}
 }
 
+func (h *Handler) GetCustomerByName(c *gin.Context){
+	firstname := c.Param("firstname")
+	lastname := c.Param("lastname")
+	if h.db == nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "server database error"})
+		return
+	}
+	customer, err := h.db.GetCustomerByName(firstname, lastname)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, customer)
+
+}
 /*func (h *Handler) GetOrders(c *gin.Context) {
 	if h.db == nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "server database error"})

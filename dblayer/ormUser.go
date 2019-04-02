@@ -22,6 +22,14 @@ func (db *DBORM) GetUsers()(users []models.Customer, err error){
 	return users, db.Find(&users).Error
 }
 
+func (db *DBORM) GetCustomerByName(firstname string, lastname string) (customer models.Customer, err error) {
+	return customer, db.Where(&models.Customer{FirstName:firstname, LastName:lastname}).Find(&customer).Error
+}
+
+func (db *DBORM) GetCustomerByID(id int) (customer models.Customer, err error) {
+	return customer, db.First(&customer, id).Error
+}
+
 func (db *DBORM) SignInUser(email, pass string)(customer models.Customer, err error){
 	//Obtain a *gorm.DB object representing our customer's row
 	result := db.Table("Customers").Where(&models.Customer{Email: email})

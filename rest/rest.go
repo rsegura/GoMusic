@@ -35,6 +35,7 @@ func RunAPI(address string) error {
 	userGroup := r.Group("/user")
 	{
 		userGroup.POST("/:id/signout", h.SignOut)
+		userGroup.GET("/:firstname/:lastname", h.GetCustomerByName)
 		//userGroup.GET("/:id/orders", h.GetOrders)
 	}
 

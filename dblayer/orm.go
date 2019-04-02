@@ -47,13 +47,7 @@ func (db *DBORM) GetPromos() (products []models.Product, err error) {
 	return products, db.Where("promotion IS NOT NULL").Find(&products).Error
 }
 
-func (db *DBORM) GetCustomerByName(firstname string, lastname string) (customer models.Customer, err error) {
-	return customer, db.Where(&models.Customer{FirstName:firstname, LastName:lastname}).Find(&customer).Error
-}
 
-func (db *DBORM) GetCustomerByID(id int) (customer models.Customer, err error) {
-	return customer, db.First(&customer, id).Error
-}
 
 func (db *DBORM) GetProduct(id int) (product models.Product, err error) {
 	return product, db.First(&product, id).Error
